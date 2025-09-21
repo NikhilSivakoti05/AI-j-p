@@ -31,7 +31,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 // Corrected directory: Maven needs to be run from the folder containing pom.xml.
-                dir('Summary-SPRINGBOOT') {
+                dir('Summaries') {
                     bat 'mvn clean package'
                 }
             }
