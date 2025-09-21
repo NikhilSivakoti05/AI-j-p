@@ -1,0 +1,9 @@
+body { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+.container { max-width: 920px; margin: 32px auto; padding: 0 16px; }
+.prompt-box textarea { width: 100%; padding: 10px; margin-bottom: 8px; }
+.prompt-box button { padding: 8px 12px; }
+.item { border: 1px solid #eee; padding: 12px; margin-bottom: 10px; border-radius: 6px; }
+.item .meta { color: #666; font-size: 12px; }
+.item .prompt { font-weight: 600; margin-top: 6px; }
+.item .response { margin-top: 6px; white-space: pre-wrap; }
+.actions button { margin-right: 8px; }
