@@ -1,8 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-// https://vite.dev/config/
+// vite.config.js (dev only)
 export default defineConfig({
   plugins: [react()],
-  base : "/PromptAI/"
+  base: "/",
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8080', // your Spring Boot backend
+    },
+  },
 })
