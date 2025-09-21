@@ -5,8 +5,9 @@ pipeline {
 
         // ===== FRONTEND BUILD =====
         stage('Build Frontend') {
-            steps {
-                dir('Summary-REACT') {
+            // This directory path should match your React project folder.
+            dir('todo-jenkins') {
+                steps {
                     bat 'npm install'
                     bat 'npm run build'
                 }
@@ -21,15 +22,16 @@ pipeline {
                     rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI"
                 )
                 mkdir "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI"
-                xcopy /E /I /Y Summary-REACT\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI"
+                xcopy /E /I /Y todo-jenkins\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI"
                 '''
             }
         }
 
         // ===== BACKEND BUILD =====
         stage('Build Backend') {
-            steps {
-                dir('Summary-SPRINGBOOT') {
+            // The pom.xml is in the root, so '.' is the correct directory.
+            dir('.') {
+                steps {
                     bat 'mvn clean package'
                 }
             }
@@ -45,7 +47,7 @@ pipeline {
                 if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springboot-jenkins-p" (
                     rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springboot-jenkins-p"
                 )
-                copy "Summary-SPRINGBOOT\\target\\*.war" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\"
+                copy "target\\*.war" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\"
                 '''
             }
         }
