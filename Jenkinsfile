@@ -5,9 +5,9 @@ pipeline {
 
         // ===== FRONTEND BUILD =====
         stage('Build Frontend') {
-            // This directory path should match your React project folder.
-            dir('todo-jenkins') {
-                steps {
+            steps {
+                // This directory path should match your React project folder.
+                dir('todo-jenkins') {
                     bat 'npm install'
                     bat 'npm run build'
                 }
@@ -29,9 +29,9 @@ pipeline {
 
         // ===== BACKEND BUILD =====
         stage('Build Backend') {
-            // The pom.xml is in the root, so '.' is the correct directory.
-            dir('.') {
-                steps {
+            steps {
+                // The pom.xml is in the root, so '.' is the correct directory.
+                dir('.') {
                     bat 'mvn clean package'
                 }
             }
