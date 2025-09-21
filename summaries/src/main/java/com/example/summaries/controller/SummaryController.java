@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/summaries")
 public class SummaryController {
 
