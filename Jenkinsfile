@@ -30,8 +30,8 @@ pipeline {
         // ===== BACKEND BUILD =====
         stage('Build Backend') {
             steps {
-                // The pom.xml is in the root, so '.' is the correct directory.
-                dir('.') {
+                // Corrected directory: Maven needs to be run from the folder containing pom.xml.
+                dir('Summary-SPRINGBOOT') {
                     bat 'mvn clean package'
                 }
             }
