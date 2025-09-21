@@ -1,65 +1,75 @@
-pipeline {
-    agent any
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    stages {
+    <modelVersion>4.0.0</modelVersion>
 
-        // ===== FRONTEND BUILD =====
-        stage('Build Frontend') {
-            steps {
-                // This directory path should match your React project folder.
-                dir('todo-jenkins') {
-                    bat 'npm install'
-                    bat 'npm run build'
-                }
-            }
-        }
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-        // ===== FRONTEND DEPLOY =====
-        stage('Deploy Frontend to Tomcat') {
-            steps {
-                bat '''
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI"
-                )
-                mkdir "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI"
-                xcopy /E /I /Y todo-jenkins\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\PromptAI"
-                '''
-            }
-        }
+    <groupId>com.klef.dev</groupId>
+    <artifactId>STUDENTAPI-SPRINGBOOT</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-        // ===== BACKEND BUILD =====
-        stage('Build Backend') {
-            steps {
-                // Corrected directory: Maven needs to be run from the folder containing pom.xml.
-                dir('Summaries') {
-                    bat 'mvn clean package'
-                }
-            }
-        }
+    <name>SpringBootProject</name>
+    <description>Demo project for Spring Boot</description>
 
-        // ===== BACKEND DEPLOY =====
-        stage('Deploy Backend to Tomcat') {
-            steps {
-                bat '''
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springboot-jenkins-p.war" (
-                    del /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springboot-jenkins-p.war"
-                )
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springboot-jenkins-p" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springboot-jenkins-p"
-                )
-                copy "Summaries//target\\*.war" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\"
-                '''
-            }
-        }
+    <properties>
+        <java.version>21</java.version>
+    </properties>
 
-    }
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
-    post {
-        success {
-            echo 'Deployment Successful!'
-        }
-        failure {
-            echo 'Pipeline Failed.'
-        }
-    }
-}
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>springbootstudentapidemo</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
