@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'; // Assuming you have a basic CSS file for styling
 
-const API_URL = "http://localhost:2030/Springboot-jenkins-p";
+const API_URL = "http://localhost:2030/Springboot-jenkins-p/api/summaries";
 
 
 
