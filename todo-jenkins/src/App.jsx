@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'; // Assuming you have a basic CSS file for styling
 
-const API_URL = "http://localhost:8080/api/summaries";
+const API_URL = "http://localhost:2030/springbootstudentapi/api/summaries";
+
 
 function App() {
   const [prompt, setPrompt] = useState("");
